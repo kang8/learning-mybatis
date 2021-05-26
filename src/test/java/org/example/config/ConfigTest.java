@@ -12,6 +12,7 @@ public class ConfigTest {
 
   @Test
   void configFileLoad() throws IOException {
+    // 配置文件的加载
     InputStream resourceAsStream = Resources.getResourceAsStream("resources/mybatis-config.xml");
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
   }

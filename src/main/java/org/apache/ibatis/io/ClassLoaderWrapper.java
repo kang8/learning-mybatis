@@ -109,6 +109,7 @@ public class ClassLoaderWrapper {
    * @return the resource or null
    */
   InputStream getResourceAsStream(String resource, ClassLoader[] classLoader) {
+    // 依次遍历 classLoader，直到找到 resource 为止
     for (ClassLoader cl : classLoader) {
       if (null != cl) {
 
@@ -116,6 +117,7 @@ public class ClassLoaderWrapper {
         InputStream returnValue = cl.getResourceAsStream(resource);
 
         // now, some class loaders want this leading "/", so we'll add it and try again if we didn't find the resource
+        // 有一些 class loaders 要在前面加上 "/" 才能解析到 resource
         if (null == returnValue) {
           returnValue = cl.getResourceAsStream("/" + resource);
         }
@@ -197,13 +199,16 @@ public class ClassLoaderWrapper {
 
   }
 
+  /**
+   * 依次加载 classloader
+   */
   ClassLoader[] getClassLoaders(ClassLoader classLoader) {
     return new ClassLoader[]{
-        classLoader,
-        defaultClassLoader,
-        Thread.currentThread().getContextClassLoader(),
-        getClass().getClassLoader(),
-        systemClassLoader};
+        classLoader, // 显示传入的 classLoader
+        defaultClassLoader, // 默认的 classLoader
+        Thread.currentThread().getContextClassLoader(), // 当前线程的 classLoader
+        getClass().getClassLoader(), // 当前类的 classLoader
+        systemClassLoader}; // 当前系统的 classLoader
   }
 
 }

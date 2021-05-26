@@ -91,6 +91,7 @@ public class Resources {
 
   /**
    * Returns a resource on the classpath as a Stream object
+   * 返回 classpath 中的 resource 文件名的流对象
    *
    * @param resource The resource to find
    * @return The resource
