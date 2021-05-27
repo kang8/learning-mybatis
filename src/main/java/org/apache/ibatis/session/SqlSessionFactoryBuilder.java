@@ -72,10 +72,17 @@ public class SqlSessionFactoryBuilder {
     return build(inputStream, null, properties);
   }
 
+  /**
+   * 生成 SqlSessionFactory 类
+   *
+   * @param inputStream mybatis 配置文件
+   * @param environment 环境变量
+   * @param properties 属性
+   */
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
-      return build(parser.parse());
+      return build(parser.parse()); // return 后还会继续执行 finally 中的语句
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);
     } finally {
@@ -84,6 +91,7 @@ public class SqlSessionFactoryBuilder {
         inputStream.close();
       } catch (IOException e) {
         // Intentionally ignore. Prefer previous error.
+        // 故意忽略 IO 异常，更中意之前的错误
       }
     }
   }

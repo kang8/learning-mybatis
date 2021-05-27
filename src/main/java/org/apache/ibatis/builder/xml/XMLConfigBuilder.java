@@ -48,6 +48,9 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.JdbcType;
 
 /**
+ * 基于 XML 的配置构造器
+ * 使用构造器模式
+ *
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

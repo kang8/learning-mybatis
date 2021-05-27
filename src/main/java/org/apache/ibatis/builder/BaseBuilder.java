@@ -32,6 +32,9 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  * @author Clinton Begin
  */
 public abstract class BaseBuilder {
+  /**
+   * 配置类，所有的 配置项, Mapper, statement 都会存在这里
+   */
   protected final Configuration configuration;
   protected final TypeAliasRegistry typeAliasRegistry;
   protected final TypeHandlerRegistry typeHandlerRegistry;
@@ -50,6 +53,10 @@ public abstract class BaseBuilder {
     return Pattern.compile(regex == null ? defaultValue : regex);
   }
 
+  /**
+   * 将 value 转换成 Boolean，如果 value 不存在则返回 defaultValue，即默认值。
+   * 如果 value 字符串等于 "true"「不区分大小写」，就放回 true，否则返回 false
+   */
   protected Boolean booleanValueOf(String value, Boolean defaultValue) {
     return value == null ? defaultValue : Boolean.valueOf(value);
   }
